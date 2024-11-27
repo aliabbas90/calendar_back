@@ -1,0 +1,12 @@
+Flask==2.0.3
+firebase-admin==5.2.0
+python-dotenv==0.19.2
+Werkzeug==2.0.3
+coverage
+python-dateutil
+google-cloud-firestore
+protobuf
+flask-swagger-ui
+gunicorn==23.0.0
+flask_cors
+passwordgenerator
