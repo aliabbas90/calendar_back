@@ -1,1 +1,0 @@
-api_URL = "https://tipii-orders-data-api-868553227901.europe-west9.run.app"
