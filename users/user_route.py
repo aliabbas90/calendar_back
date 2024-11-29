@@ -40,6 +40,8 @@ def create_user():
     data = request.get_json()
     user_id = data.get('id')
     user_name = data.get('name')
+    reward = data.get('reward')
+    reward_day = data.get('reward_day')
     print(user_name)
-    return create_new_user(user_id,user_name)
+    return create_new_user(user_id,user_name,reward,reward_day)
 

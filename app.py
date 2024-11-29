@@ -8,7 +8,7 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-app.register_blueprint(users_bp)
+app.register_blueprint(users_bp, url_prefix='/api')
 
 
 if __name__ == '__main__':

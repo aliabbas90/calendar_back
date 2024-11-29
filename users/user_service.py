@@ -30,7 +30,7 @@ def update_user_day(id, day_index, new_day_value):
         return {"error": "User not found."}
 
 
-def create_user_service(id,user_name):
+def create_user_service(id,user_name,reward,reward_day):
     user_ref = database.db.collection('users').where('identifier', '==', id).get()
     if user_ref:
         return {"error": "User already exists."}
@@ -39,7 +39,9 @@ def create_user_service(id,user_name):
     user_data = {
         "id": id,
         "name": user_name,
-        "days": ["ready_to_open"] * 24
+        "days": ["ready_to_open"] * 24,
+        "reward" : reward,
+        "reward_day" : reward_day
     }
     database.db.collection('users').add(user_data)
     return {"message": "User created successfully."}

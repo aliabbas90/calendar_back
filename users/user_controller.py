@@ -23,6 +23,6 @@ def modify_user_day(id, day_index, new_day_value):
     result = update_user_day(id, day_index, new_day_value)
     return jsonify(result)
 
-def create_new_user(id,user_name):
-    result = create_user_service(id,user_name)
+def create_new_user(id,user_name,reward,reward_day):
+    result = create_user_service(id,user_name,reward,reward_day)
     return jsonify(result)
