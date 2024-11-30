@@ -14,7 +14,7 @@ def determine_user_rewards(id):
     return reward,reward_day
 
 def update_user_day(id, day_index, new_day_value):
-    user_ref = database.db.collection('users').where('identifier', '==', id).get()
+    user_ref = database.db.collection('users').where('id', '==', id).get()
     if user_ref:
         doc_ref = user_ref[0].reference
         doc_data = doc_ref.get().to_dict()
@@ -31,7 +31,7 @@ def update_user_day(id, day_index, new_day_value):
 
 
 def create_user_service(id,user_name,reward,reward_day):
-    user_ref = database.db.collection('users').where('identifier', '==', id).get()
+    user_ref = database.db.collection('users').where('id', '==', id).get()
     if user_ref:
         return {"error": "User already exists."}
 
