@@ -16,8 +16,8 @@ def get_user_name_from_id(id):
     return jsonify(name)
 
 def get_user_rewards(id):
-    rewards = determine_user_rewards(id)
-    return jsonify(rewards)
+    reward,reward_day = determine_user_rewards(id)
+    return jsonify({"reward":reward,"reward_day_":reward_day})
 
 def modify_user_day(id, day_index, new_day_value):
     result = update_user_day(id, day_index, new_day_value)

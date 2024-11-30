@@ -10,8 +10,8 @@ def determine_user_name(id):
     return {"name":username}
 
 def determine_user_rewards(id):
-    rewardlist = get_all_rewards_from_user(id)
-    return rewardlist
+    reward,reward_day = get_all_rewards_from_user(id)
+    return reward,reward_day
 
 def update_user_day(id, day_index, new_day_value):
     user_ref = database.db.collection('users').where('identifier', '==', id).get()
