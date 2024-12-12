@@ -1,5 +1,10 @@
 from config import database
 from utils.data_gathering import *
+import os
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def calculate_user_days(id):
     daylist = get_all_days_from_user(id)
@@ -45,3 +50,35 @@ def create_user_service(id,user_name,reward,reward_day):
     }
     database.db.collection('users').add(user_data)
     return {"message": "User created successfully."}
+
+def validate_recaptcha(token):
+    print("Début de la validation reCAPTCHA...")
+    api_key = os.getenv("CAPTCHA_API_KEY")
+    site_key = os.getenv("CAPTCHA_SITE_KEY")
+    url = f"https://recaptchaenterprise.googleapis.com/v1/projects/tipii-calendar-659cf/assessments?key={api_key}"
+
+    request_body = {
+        "event": {
+            "token": token,
+            "expectedAction": "LOGIN",
+            "siteKey": site_key,
+        }
+    }
+
+    try:
+        print(f"Envoi de la requête POST à l'URL : {url}")
+        response = requests.post(url, json=request_body)
+        print(f"Statut HTTP de la réponse : {response.status_code}")
+        result = response.json()
+        print("Réponse reCAPTCHA :", result)
+
+        valid = result.get("tokenProperties", {}).get("valid", False)
+        score = result.get("riskAnalysis", {}).get("score", 0)
+
+        print(f"Validité : {valid}, Score : {score}")
+        return valid, score
+    except Exception as e:
+        print(f"Erreur lors de la validation reCAPTCHA : {e}")
+        return False, 0
+
+

@@ -1,4 +1,4 @@
-from flask import Blueprint,request
+from flask import Blueprint,request,jsonify
 from .user_controller import (
     get_user_days,
     get_user_name_from_id,
@@ -19,7 +19,13 @@ def days_of_user():
 @users_bp.route('/users/id-to-name', methods=['GET'])
 def name_of_user():
     id = request.args.get('id')
-    return get_user_name_from_id(id)
+    captcha_token = request.args.get('captchaToken')
+    print("dans user_route:",captcha_token)
+    if not captcha_token:
+        return jsonify({"error": "Token reCAPTCHA manquant"}), 400
+
+    return get_user_name_from_id(id, captcha_token)
+
 
 @users_bp.route('/users/rewards', methods=['GET'])
 def rewards_of_user():
